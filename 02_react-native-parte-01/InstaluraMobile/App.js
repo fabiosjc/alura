@@ -9,50 +9,32 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  Image,
+  Dimensions,
+  FlatList
 } from 'react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+const width = Dimensions.get('screen').width;
+const fotos = [
+  {id:1, usuario: 'fabio'}, 
+  {id:2, usuario: 'alex'}, 
+  {id:3, usuario: 'vitor'}
+];
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Bem vindo ao curso Alura de React Native!!!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
+      <FlatList style={{marginTop: 20}}
+        keyExtractor={item => item.id}
+        data={fotos}
+        renderItem={ ({item}) => 
+          <View>
+            <Text>{item.usuario}</Text>
+            <Image source={require('./resources/img/alura.jpg')} style={{width:width, height:width}} />
+          </View>
+        }
+      />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
