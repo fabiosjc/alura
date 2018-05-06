@@ -14,8 +14,8 @@ import {
   Dimensions,
   FlatList
 } from 'react-native';
+import Post from './src/components/Post';
 
-const width = Dimensions.get('screen').width;
 const fotos = [
   {id:1, usuario: 'fabio'}, 
   {id:2, usuario: 'alex'}, 
@@ -25,16 +25,19 @@ const fotos = [
 export default class App extends Component {
   render() {
     return (
-      <FlatList style={{marginTop: 20}}
+      <FlatList style={styles.container}
         keyExtractor={item => item.id}
         data={fotos}
-        renderItem={ ({item}) => 
-          <View>
-            <Text>{item.usuario}</Text>
-            <Image source={require('./resources/img/alura.jpg')} style={{width:width, height:width}} />
-          </View>
+        renderItem={ ({item}) =>
+          <Post item={item}/>
         }
       />
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+      marginTop: 20,
+  }
+});
