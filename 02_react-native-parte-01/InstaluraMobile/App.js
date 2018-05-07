@@ -14,22 +14,34 @@ import {
   Dimensions,
   FlatList
 } from 'react-native';
-import Post from './src/components/Post';
-
-const fotos = [
-  {id:1, usuario: 'fabio'}, 
-  {id:2, usuario: 'alex'}, 
-  {id:3, usuario: 'vitor'}
-];
+import Post from './src/components/Post'; 
 
 export default class App extends Component {
+  
+  constructor() {
+    super();
+    this.state = {
+      fotos: []
+    }
+  }
+
+  componentDidMount() {
+    fetch('https://instalura-api.herokuapp.com/api/public/fotos/rafael')
+      .then(resp => resp.json())
+      .then(json => this.setState({fotos: json}))
+      .catch(e => {
+        console.warn('Não foi possível carregar as fotos: ' + e);
+        this.setState({status: 'ERRO'})
+      });
+  }
+
   render() {
     return (
       <FlatList style={styles.container}
         keyExtractor={item => item.id}
-        data={fotos}
+        data={this.state.fotos}
         renderItem={ ({item}) =>
-          <Post item={item}/>
+          <Post foto={item}/>
         }
       />
     );
