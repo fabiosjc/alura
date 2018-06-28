@@ -132,3 +132,22 @@ docker run -d `-p 12345:80` dockersamples/static-site
 ## docker stop $(docker ps -q)
 
 Pára todos os containers de uma só vez
+
+
+# 03 - Trabalhando com volumes
+
+- Containers são voláteis e para criar dados persistentes usamos os volumes
+- Um volume fica salvo no Docker Hosts, ou seja, fica salvo no computador onde a Docker Engine está rodando
+
+## Criando um container com volume
+> docker run -v "`/var/www`" ubuntu
+
+> docker run -it -v "`~/Desktop/`:`/var/www`" ubuntu
+
+# 04 - Rodando código em um container
+ É importante especificar através da flag `-w` (working directory) qual o diretório que será executado os comandos especificados
+
+ > docker run -d -p 8080:3000 -v "/home/fsiqueira/estudos/alura/03-docker-ccsdsc/volume-exemplo:/var/www" `-w` "/var/www/" node npm start 
+
+ > docker run -d -p 8080:3000 -v "$(pwd):/var/www" -w "/var/www/" node npm start 
+
