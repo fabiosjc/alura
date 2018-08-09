@@ -15,7 +15,7 @@ export default class Post extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      foto: this.props.foto
+      foto: { ...this.props.foto, likers: [{}]}
     }
   }
 
@@ -30,6 +30,23 @@ export default class Post extends Component {
       likeada: !this.state.foto.likeada
     }
     this.setState({ foto: fotoAtualizada });
+  }
+
+  exibeLikes(likers) {
+    if(likers.length <= 0) {
+      return;
+    }
+
+    return (<Text style={styles.likes}>{likers.length} {likers.length > 1 ? 'curtidas': 'curtida'}</Text>)
+  }
+
+  exibeLegenda(foto) {
+    if (foto.comentario === '') { return  }
+
+    return <View style={styles.comentario}>
+             <Text style={styles.tituloComentario}>{foto.loginUsuario}</Text>
+             <Text>{foto.comentario}</Text>
+           </View>
   }
 
   render() {
@@ -50,6 +67,11 @@ export default class Post extends Component {
             <Image style={styles.botaoDeLike}
               source={this.carregaIcone(foto.likeada)} />
           </TouchableOpacity>
+
+          {this.exibeLikes(foto.likers)}
+
+          {this.exibeLegenda(foto)}
+
         </View>
       </View>
     );
@@ -66,17 +88,28 @@ const styles = StyleSheet.create({
     marginRight: 10,
     borderRadius: 20,
     width: 40,
-    height: 40,
+    height: 40
   },
   foto: {
     width: width,
     height: width,
   },
   rodape: {
-    margin: 10,
+    margin: 10
   },
   botaoDeLike: {
     height: 40,
     width: 40,
+    marginBottom: 10
+  },
+  likes: {
+    fontWeight: 'bold'
+  },
+  comentario: {
+    flexDirection: 'row'
+  },
+  tituloComentario: {
+    fontWeight: 'bold',
+    marginRight: 5
   }
 });
