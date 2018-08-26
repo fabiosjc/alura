@@ -6,7 +6,8 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  FlatList
 } from 'react-native';
 
 const width = Dimensions.get('screen').width;
@@ -93,7 +94,6 @@ export default class Post extends Component {
 
   render() {
     const { foto } = this.state;
-    
     return (
       <View>
         <View style={styles.cabecalho}>
@@ -114,12 +114,15 @@ export default class Post extends Component {
           {this.exibeLikes(foto.likers)}
           {this.exibeLegenda(foto)}
 
-          {foto.comentarios.map(comentario =>
-            <View key={comentario.id} style={styles.comentario}>
-              <Text style={styles.tituloComentario}>{comentario.login}</Text>
-              <Text>{comentario.texto}</Text>
-            </View>
-          )}
+        <FlatList 
+            data={foto.comentarios}
+            keyExtractor={item => item.id}
+            renderItem={ ({item}) => 
+                <View style={styles.comentario}>
+                    <Text style={styles.tituloComentario}>{item.login}</Text>
+                    <Text>{item.texto}</Text>
+                </View>
+            }/>
 
           <View style={styles.novoComentario}>
             <TextInput style={styles.input} placeholder="Adicione um comentário..." 
