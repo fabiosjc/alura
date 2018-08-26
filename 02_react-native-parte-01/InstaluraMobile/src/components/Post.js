@@ -16,10 +16,8 @@ export default class Post extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      foto: {
-        ...this.props.foto,
-        valorComentario: ''
-      }
+      foto: this.props.foto,
+      valorComentario: ''
     }
   }
 
@@ -75,8 +73,7 @@ export default class Post extends Component {
     if(this.state.valorComentario === '')
       return;
 
-    const novaLista = [
-      ...this.state.foto.comentarios, {
+    const novaLista = [...this.state.foto.comentarios, {
         id: this.state.valorComentario,
         login: 'meuUsuario',
         texto: this.state.valorComentario
@@ -96,6 +93,7 @@ export default class Post extends Component {
 
   render() {
     const { foto } = this.state;
+    
     return (
       <View>
         <View style={styles.cabecalho}>
