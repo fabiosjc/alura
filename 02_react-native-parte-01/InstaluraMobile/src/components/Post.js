@@ -5,7 +5,8 @@ import {
   View,
   Dimensions,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  TextInput
 } from 'react-native';
 
 const width = Dimensions.get('screen').width;
@@ -86,7 +87,6 @@ export default class Post extends Component {
           </TouchableOpacity>
 
           {this.exibeLikes(foto.likers)}
-
           {this.exibeLegenda(foto)}
 
           {foto.comentarios.map(comentario =>
@@ -95,6 +95,11 @@ export default class Post extends Component {
               <Text>{comentario.texto}</Text>
             </View>
           )}
+
+          <View style={styles.novoComentario}>
+            <TextInput style={styles.input} placeholder="Adicione um comentário..."/>
+            <Image source={require('../../resources/img/send.png')}  style={styles.icone}/>
+          </View>
 
         </View>
       </View>
@@ -135,5 +140,20 @@ const styles = StyleSheet.create({
   tituloComentario: {
     fontWeight: 'bold',
     marginRight: 5
+  },
+  novoComentario: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd'
+  },  
+  input: {
+    height: 40,
+    flex: 1
+  },
+  icone: {
+    width: 30,
+    height: 30
+
   }
 });
