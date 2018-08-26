@@ -37,11 +37,11 @@ export default class App extends Component {
 
   render() {
     return (
-      <FlatList style={styles.container}
+        <FlatList style={styles.container}
         keyExtractor={item => item.id}
         data={this.state.fotos}
         renderItem={ ({item}) =>
-          <Post foto={item}/>
+          <Post foto={item} />
         }
       />
     );
